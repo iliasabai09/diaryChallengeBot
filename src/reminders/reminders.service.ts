@@ -69,13 +69,23 @@ export class RemindersService {
           .filter((r) => r.hh === hh && r.mm === mm)
           .map((r) => r.text);
         for (const t of texts) {
-          await this.bot.telegram.sendMessage(
+          const msg = await this.bot.telegram.sendMessage(
             ch.chatId,
             `⏰ Напоминание: ${t}\n\nОтметь: /done`,
             {
-              message_thread_id: ch.threadId, // ✅ отправка в топик
+              message_thread_id: ch.threadId, // отправка в топик
             },
           );
+
+          // автоочистка через 1 час
+          setTimeout(
+            () => {
+              try {
+                this.bot.telegram.deleteMessage(ch.chatId, msg.message_id);
+              } catch (e: any) {}
+            },
+            60 * 60 * 1000,
+          ); // 1 час
         }
       } catch (e: any) {
         this.logger.error(

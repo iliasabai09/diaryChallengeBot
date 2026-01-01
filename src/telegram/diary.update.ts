@@ -80,8 +80,8 @@ export class DiaryUpdate {
           `🔥 Серия: ${st?.streak ?? 0}\n` +
           `🏁 Выполнено: ${st?.doneCount ?? 0}/${st?.totalDays ?? 0}`,
       );
-      this.autoDeleteMessage(ctx, ctx.message?.message_id, 5 * 1000);
-      this.autoDeleteMessage(ctx, botMsg.message_id, 5 * 1000);
+      this.autoDeleteMessage(ctx, ctx.message?.message_id, 60 * 1000);
+      this.autoDeleteMessage(ctx, botMsg.message_id, 60 * 1000);
     } catch (e: any) {
       return ctx.reply(`⚠️ ${e?.message ?? 'Ошибка'}`);
     }
@@ -107,8 +107,8 @@ export class DiaryUpdate {
           `📉 Пропусков: ${st?.missCount ?? 0}\n` +
           `🏁 Выполнено: ${st?.doneCount ?? 0}/${st?.totalDays ?? 0}`,
       );
-      this.autoDeleteMessage(ctx, ctx.message?.message_id, 5 * 1000);
-      this.autoDeleteMessage(ctx, botMsg.message_id, 5 * 1000);
+      this.autoDeleteMessage(ctx, ctx.message?.message_id, 60 * 1000);
+      this.autoDeleteMessage(ctx, botMsg.message_id, 60 * 1000);
     } catch (e: any) {
       return ctx.reply(`⚠️ ${e?.message ?? 'Ошибка'}`);
     }
@@ -131,8 +131,8 @@ export class DiaryUpdate {
         `🔥 Серия: ${st.streak}\n` +
         `🏆 Лучшая серия: ${st.bestStreak}`,
     );
-    this.autoDeleteMessage(ctx, ctx.message?.message_id, 5 * 1000);
-    this.autoDeleteMessage(ctx, botMsg.message_id, 5 * 1000);
+    this.autoDeleteMessage(ctx, ctx.message?.message_id, 60 * 1000);
+    this.autoDeleteMessage(ctx, botMsg.message_id, 60 * 1000);
   }
 
   // 📈 ANALYTICS (оставляем)
@@ -153,7 +153,7 @@ export class DiaryUpdate {
         `• Пропусков: ${a.missCount}\n` +
         `• Прогноз завершения: ${a.forecast}%`,
     );
-    this.autoDeleteMessage(ctx, ctx.message?.message_id, 5 * 1000);
-    this.autoDeleteMessage(ctx, botMsg.message_id, 5 * 1000);
+    this.autoDeleteMessage(ctx, ctx.message?.message_id, 60 * 1000);
+    this.autoDeleteMessage(ctx, botMsg.message_id, 60 * 1000);
   }
 }
