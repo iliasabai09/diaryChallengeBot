@@ -58,7 +58,7 @@ export class RemindersService {
     if (!challenges.length) return;
 
     const todayStart = this.startOfDay(nowLocal);
-
+    console.log('challenges', challenges);
     for (const ch of challenges) {
       try {
         // 2) проверяем: был ли done сегодня по этому челленджу
