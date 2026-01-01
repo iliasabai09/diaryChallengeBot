@@ -29,7 +29,6 @@ export class RemindersService {
   private toAlmaty(now: Date) {
     // Railway/сервер может быть UTC — переводим в Алматы (UTC+5)
     const ms = now.getTime() + 5 * 60 * 60 * 1000;
-    console.log(new Date(ms));
     // const ms = now.getTime();
     return new Date(ms);
   }
@@ -42,7 +41,6 @@ export class RemindersService {
 
   @Cron(CronExpression.EVERY_5_SECONDS) // ✅ каждую минуту
   async tick() {
-    console.log('Reminder tick');
     const nowLocal = this.toAlmaty(new Date());
     const hh = nowLocal.getHours();
     const mm = nowLocal.getMinutes();
@@ -54,11 +52,9 @@ export class RemindersService {
         reminders: { $elemMatch: { hh, mm } },
       })
       .lean();
-    console.log({ hh, mm });
     if (!challenges.length) return;
 
     const todayStart = this.startOfDay(nowLocal);
-    console.log('challenges', challenges);
     for (const ch of challenges) {
       try {
         // 2) проверяем: был ли done сегодня по этому челленджу
@@ -67,12 +63,10 @@ export class RemindersService {
           type: 'done',
           createdAt: { $gte: todayStart },
         });
-
         if (doneToday) continue;
-
         // 3) берём текст напоминания (можно несколько — отправим все)
         const texts = (ch.reminders ?? [])
-          // .filter((r) => r.hh === hh && r.mm === mm)
+          .filter((r) => r.hh === hh && r.mm === mm)
           .map((r) => r.text);
         for (const t of texts) {
           await this.bot.telegram.sendMessage(
