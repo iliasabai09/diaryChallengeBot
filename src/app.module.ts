@@ -6,6 +6,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { TelegramModule } from './telegram/telegram.module';
 import { ChallengesModule } from './challenges/challenges.module';
 import { FormsModule } from './forms/forms.module';
+import { RemindersModule } from './reminders/reminders.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FormsModule } from './forms/forms.module';
     TelegramModule,
     FormsModule,
     FormsModule,
+    RemindersModule,
   ],
 })
 export class AppModule {}
