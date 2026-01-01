@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Telegraf } from 'telegraf';
@@ -29,6 +29,7 @@ export class RemindersService {
   private toAlmaty(now: Date) {
     // Railway/сервер может быть UTC — переводим в Алматы (UTC+5)
     const ms = now.getTime() + 5 * 60 * 60 * 1000;
+    console.log(new Date(ms));
     // const ms = now.getTime();
     return new Date(ms);
   }
@@ -39,7 +40,7 @@ export class RemindersService {
     return x;
   }
 
-  @Cron('* * * * *') // ✅ каждую минуту
+  @Cron(CronExpression.EVERY_5_SECONDS) // ✅ каждую минуту
   async tick() {
     console.log('Reminder tick');
     const nowLocal = this.toAlmaty(new Date());
