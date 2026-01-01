@@ -39,7 +39,7 @@ export class RemindersService {
     return x;
   }
 
-  @Cron(CronExpression.EVERY_5_SECONDS) // ✅ каждую минуту
+  @Cron(CronExpression.EVERY_MINUTE) // ✅ каждую минуту
   async tick() {
     const nowLocal = this.toAlmaty(new Date());
     const hh = nowLocal.getHours();
