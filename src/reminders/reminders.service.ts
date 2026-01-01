@@ -72,7 +72,7 @@ export class RemindersService {
 
         // 3) берём текст напоминания (можно несколько — отправим все)
         const texts = (ch.reminders ?? [])
-          .filter((r) => r.hh === hh && r.mm === mm)
+          // .filter((r) => r.hh === hh && r.mm === mm)
           .map((r) => r.text);
         for (const t of texts) {
           await this.bot.telegram.sendMessage(
